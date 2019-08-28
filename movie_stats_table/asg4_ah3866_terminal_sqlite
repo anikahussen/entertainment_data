@@ -1,0 +1,878 @@
+Last login: Tue Mar  5 09:24:00 on ttys000
+Anikas-MBP:~ anikahussen$ cd Desktop/database_design_projects/data_scrubbing_project
+Anikas-MBP:data_scrubbing_project anikahussen$ sqlite3 movies.db
+SQLite version 3.26.0 2018-12-01 12:34:55
+Enter ".help" for usage hints.
+sqlite> .read asg4_ah3866_script_movies.sql
+sqlite> .tables
+movies
+sqlite> .schema movies
+CREATE TABLE movies (
+	'director_name'	TEXT,
+	'num_critic_review' INTEGER,
+	'duration' INTEGER, 
+	'director_fb_likes'	INTEGER,
+	'actor_1_fb_likes'	INTEGER,
+	'gross' INTEGER,
+	'genres' TEXT,
+	'actor_1_name' TEXT,
+	'title' TEXT,
+	'num_voted_users' INTEGER,
+	'cast_total_fb_likes' INTEGER,
+	'num_user_review' INTEGER, 
+	'language' TEXT, 
+	'country' TEXT, 
+	'content_rating' TEXT, 
+	'budget' INTEGER, 
+	'year' INTEGER, 
+	'imdb_score' INTEGER, 
+	'aspect_ratio' INTEGER, 
+	'movie_fb_likes' INTEGER
+);
+sqlite> SELECT COUNT (*)
+   ...> FROM movies; 
+   ...> 
+5043
+sqlite> .mode columns
+
+     
+sqlite> .width 50 10 10 10 10
+sqlite> SELECT title, director_fb_likes, actor_1_fb_likes, cast_total_fb_likes, imdb_score
+   ...> FROM movies
+   ...> ORDER BY imdb_score DESC
+   ...> LIMIT 10;
+Towering Inferno                                    0           770         1125        9.5       
+The Shawshank Redemption                            0           11000       13495       9.3       
+The Godfather                                       0           14000       28122       9.2       
+Dekalog                                                         20          25          9.1       
+Dekalog                                                         20          25          9.1       
+Kickboxer: Vengeance                                134         260000      261818      9.1       
+The Dark Knight                                     22000       23000       57802       9         
+The Godfather: Part II                              0           22000       39960       9         
+Fargo                                                           4000        19949       9         
+The Lord of the Rings: The Return of the King       0           5000        6434        8.9       
+
+sqlite> SELECT title, budget, gross
+   ...> FROM movies 
+   ...> WHERE budget < 500000
+   ...> ORDER BY title 
+   ...> LIMIT 10;
+12 Angry Men                                        350000                
+20 Dates                                            60000       536767    
+3 Backyards                                         300000                
+42nd Street                                         439000      2300000   
+A Charlie Brown Christmas                           150000                
+A Dog's Breakfast                                   120000                
+A Dog's Breakfast                                   120000                
+A Fistful of Dollars                                200000      3500000   
+A Plague So Pleasant                                1400                  
+A True Story                                        45000                 
+sqlite> SELECT title, budget, gross
+   ...> FROM movies
+   ...> WHERE budget > 200000000
+   ...> ORDER BY budget DESC
+   ...> LIMIT 10;
+Star Wars: Episode VII - The Force Awakens                                
+The Good Dinosaur                                               123070338 
+The Lovers                                                                
+Godzilla Resurgence                                                       
+Harry Potter and the Deathly Hallows: Part II                             
+Godzilla Resurgence                                                       
+Harry Potter and the Deathly Hallows: Part I                              
+The A-Team                                                                
+10,000 B.C.                                                               
+Ben-Hur                                                                   
+                                                                  
+
+sqlite> SELECT country, AVG(gross) AS g
+   ...> FROM movies 
+   ...> GROUP BY country
+   ...> ORDER BY country;
+                                                    0.0       
+Afghanistan                                         1127331.0 
+Argentina                                           5423202.25
+Aruba                                               10076136.0
+Australia                                           30702694.5
+Bahamas                                             0.0       
+Belgium                                             340283.25 
+Brazil                                              1695358.75
+Bulgaria                                            0.0       
+Cambodia                                            0.0       
+Cameroon                                            32631.0   
+Canada                                              12818323.8
+Chile                                               12188642.0
+China                                               8957259.13
+Colombia                                            6517198.0 
+Czech Republic                                      1294772.0 
+Denmark                                             1160565.63
+Dominican Republic                                  0.0       
+Egypt                                               0.0       
+Finland                                             611709.0  
+France                                              12846894.9
+Georgia                                             17149.0   
+Germany                                             25387662.2
+Greece                                              1908995.5 
+Hong Kong                                           10598337.5
+Hungary                                             11687595.5
+Iceland                                             10598.0   
+India                                               1494449.08
+Indonesia                                           4105123.0 
+Iran                                                2424418.5 
+Ireland                                             5861358.33
+Israel                                              1220488.0 
+Italy                                               1647699.08
+Japan                                               24800561.9
+Kenya                                               0.0       
+Kyrgyzstan                                          0.0       
+Libya                                               0.0       
+Mexico                                              6153897.35
+Netherlands                                         1130933.0 
+New Line                                            6712451.0 
+New Zealand                                         86544034.8
+Nigeria                                             0.0       
+Norway                                              225568.625
+Official site                                       20218921.0
+Pakistan                                            0.0       
+Panama                                              0.0       
+Peru                                                57362581.0
+Philippines                                         70071.0   
+Poland                                              1139909.8 
+Romania                                             4550493.25
+Russia                                              1359982.45
+Slovakia                                            0.0       
+Slovenia                                            0.0       
+South Africa                                        20092530.1
+South Korea                                         1594166.5 
+Soviet Union                                        0.0       
+Spain                                               6962105.21
+Sweden                                              63405.8333
+Switzerland                                         0.0       
+Taiwan                                              64340682.0
+Thailand                                            2602324.6 
+Turkey                                              0.0       
+UK                                                  26357588.2
+USA                                                 46918637.8
+United Arab Emirates                                0.0       
+West Germany                                        3811044.66
+sqlite> .width  20 10 10
+sqlite> SELECT COUNTRY, AVG(budget) as b, AVG(gross) as g
+   ...> FROM movies 
+   ...> GROUP BY country 
+   ...> ORDER BY country;
+                      700000.0    0.0       
+Afghanistan           46000.0     1127331.0 
+Argentina             1425000.0   5423202.25
+Aruba                 35000000.0  10076136.0
+Australia             28338282.2  30702694.5
+Bahamas               5000000.0   0.0       
+Belgium               12250000.0  340283.25 
+Brazil                3650000.0   1695358.75
+Bulgaria              7000000.0   0.0       
+Cambodia              0.0         0.0       
+Cameroon              0.0         32631.0   
+Canada                12801841.2  12818323.8
+Chile                 26000000.0  12188642.0
+China                 47701233.3  8957259.13
+Colombia              3000000.0   6517198.0 
+Czech Republic        48816666.6  1294772.0 
+Denmark               11390909.0  1160565.63
+Dominican Republic    500000.0    0.0       
+Egypt                 1500000.0   0.0       
+Finland               3850000.0   611709.0  
+France                25891977.2  12846894.9
+Georgia               20000000.0  17149.0   
+Germany               30979484.5  25387662.2
+Greece                9000000.0   1908995.5 
+Hong Kong             21947058.8  10598337.5
+Hungary               1260000000  11687595.5
+Iceland               4600000.0   10598.0   
+India                 54749816.1  1494449.08
+Indonesia             1100000.0   4105123.0 
+Iran                  3672500.0   2424418.5 
+Ireland               8265833.33  5861358.33
+Israel                862500.0    1220488.0 
+Italy                 11363043.4  1647699.08
+Japan                 304866082.  24800561.9
+Kenya                 15000.0     0.0       
+Kyrgyzstan            1400000.0   0.0       
+Libya                 35000000.0  0.0       
+Mexico                4536398.52  6153897.35
+Netherlands           10010000.0  1130933.0 
+New Line              90000000.0  6712451.0 
+New Zealand           70656666.6  86544034.8
+Nigeria               7500000.0   0.0       
+Norway                20887500.0  225568.625
+Official site         15000000.0  20218921.0
+Pakistan              1000000.0   0.0       
+Panama                20000000.0  0.0       
+Peru                  45000000.0  57362581.0
+Philippines           7000.0      70071.0   
+Poland                480000.0    1139909.8 
+Romania               4439500.0   4550493.25
+Russia                15700000.0  1359982.45
+Slovakia              0.0         0.0       
+Slovenia              500000.0    0.0       
+South Africa          15750000.0  20092530.1
+South Korea           1186251428  1594166.5 
+Soviet Union          1000000.0   0.0       
+Spain                 35031818.1  6962105.21
+Sweden                8400000.0   63405.8333
+Switzerland           11666666.6  0.0       
+Taiwan                15000000.0  64340682.0
+Thailand              181800000.  2602324.6 
+Turkey                8300000.0   0.0       
+UK                    23404998.0  26357588.2
+USA                   32957119.5  46918637.8
+United Arab Emirates  125000.0    0.0       
+West Germany          13666666.6  3811044.66
+sqlite> SELECT COUNTRY, AVG(budget) as b, AVG(gross) as g
+   ...> FROM movies
+   ...> GROUP BY country
+   ...> HAVING g > 20000000
+   ...> ORDER BY b DESC;
+Japan                 304866082.  24800561.9
+New Zealand           70656666.6  86544034.8
+Peru                  45000000.0  57362581.0
+USA                   32957119.5  46918637.8
+Germany               30979484.5  25387662.2
+Australia             28338282.2  30702694.5
+UK                    23404998.0  26357588.2
+South Africa          15750000.0  20092530.1
+Official site         15000000.0  20218921.0
+Taiwan                15000000.0  64340682.0
+sqlite> SELECT COUNTRY, AVG(budget) as b, AVG(gross) as g
+   ...> FROM movies
+   ...> GROUP BY country
+   ...> HAVING g > 20000000
+   ...> ORDER BY g DESC;
+New Zealand           70656666.6  86544034.8
+Taiwan                15000000.0  64340682.0
+Peru                  45000000.0  57362581.0
+USA                   32957119.5  46918637.8
+Australia             28338282.2  30702694.5
+UK                    23404998.0  26357588.2
+Germany               30979484.5  25387662.2
+Japan                 304866082.  24800561.9
+Official site         15000000.0  20218921.0
+South Africa          15750000.0  20092530.1
+sqlite> SELECT COUNTRY, AVG(budget) as b, AVG(gross) as g
+   ...> FROM movies
+   ...> GROUP BY country
+   ...> HAVING b > 20000000
+   ...> ORDER BY b DESC;
+Hungary               1260000000  11687595.5
+South Korea           1186251428  1594166.5 
+Japan                 304866082.  24800561.9
+Thailand              181800000.  2602324.6 
+New Line              90000000.0  6712451.0 
+New Zealand           70656666.6  86544034.8
+India                 54749816.1  1494449.08
+Czech Republic        48816666.6  1294772.0 
+China                 47701233.3  8957259.13
+Peru                  45000000.0  57362581.0
+Spain                 35031818.1  6962105.21
+Aruba                 35000000.0  10076136.0
+Libya                 35000000.0  0.0       
+USA                   32957119.5  46918637.8
+Germany               30979484.5  25387662.2
+Australia             28338282.2  30702694.5
+Chile                 26000000.0  12188642.0
+France                25891977.2  12846894.9
+UK                    23404998.0  26357588.2
+Hong Kong             21947058.8  10598337.5
+Norway                20887500.0  225568.625
+
+
+sqlite> SELECT country, AVG(budget) as b, AVG(gross) as g
+   ...> FROM movies
+   ...> GROUP BY country
+   ...> HAVING b < 200000
+   ...> ORDER BY b DESC;
+United Arab Emirates  125000.0    0.0       
+Afghanistan           46000.0     1127331.0 
+Kenya                 15000.0     0.0       
+Philippines           7000.0      70071.0   
+Cambodia              0.0         0.0       
+Cameroon              0.0         32631.0   
+Slovakia              0.0         0.0       
+sqlite> SELECT country, AVG(imdb_score) as i, MIN(imdb_score) as m, MAX(imdb_score) as a
+   ...> FROM movies 
+   ...> GROUP BY country
+   ...> ORDER by i DESC;
+Kyrgyzstan            8.7         8.7         8.7       
+Libya                 8.4         8.4         8.4       
+United Arab Emirates  8.2         8.2         8.2       
+Egypt                 8.1         8.1         8.1       
+Soviet Union          8.1         8.1         8.1       
+Iran                  7.725       6.5         8.5       
+Poland                7.62        5.1         9.1       
+Indonesia             7.6         7.6         7.6       
+Israel                7.525       7.2         8         
+Sweden                7.51666666  6.6         8.2       
+Argentina             7.5         6.7         8.2       
+Cameroon              7.5         7.5         7.5       
+Colombia              7.5         7.5         7.5       
+Afghanistan           7.4         7.4         7.4       
+Kenya                 7.4         7.4         7.4       
+Iceland               7.33333333  6.9         8.2       
+New Zealand           7.28        6.3         8.8       
+Brazil                7.275       5.5         8.7       
+West Germany          7.26666666  6           8.4       
+Finland               7.2         7.2         7.2       
+Panama                7.2         7.2         7.2       
+Denmark               7.17272727  5.7         8.3       
+Taiwan                7.15        6.4         7.9       
+Greece                7.0         6.7         7.3       
+Pakistan              7.0         7           7         
+Czech Republic        6.96666666  6.4         7.4       
+Japan                 6.95217391  3.8         8.7       
+Netherlands           6.94        5           7.8       
+Chile                 6.9         6.9         6.9       
+Dominican Republic    6.9         6.9         6.9       
+Italy                 6.87391304  2.6         8.9       
+Spain                 6.82424242  4.8         8.2       
+UK                    6.81830357  3           8.6       
+                      6.8         4.8         8.3       
+Ireland               6.78333333  5.7         8.3       
+Mexico                6.77647058  4.4         8.1       
+Hong Kong             6.74117647  5.2         7.8       
+Norway                6.7375      4.9         8.1       
+France                6.67857142  2           8.5       
+China                 6.62333333  3.2         7.9       
+Romania               6.6         4.9         7.9       
+India                 6.53235294  2.8         8.5       
+Australia             6.51454545  4.8         8.1       
+Hungary               6.45        5.8         7.1       
+South Africa          6.4375      4.7         8         
+Slovenia              6.4         6.4         6.4       
+USA                   6.36742842  1.6         9.3       
+Germany               6.34020618  1.9         8.5       
+Official site         6.3         6.3         6.3       
+Philippines           6.3         6.3         6.3       
+South Korea           6.25714285  2.7         8.4       
+Canada                6.16190476  2.3         9.5       
+Bulgaria              6.1         6.1         6.1       
+Russia                6.08181818  4.1         8         
+Thailand              6.08        4.8         7.1       
+Slovakia              6.0         6           6         
+Turkey                6.0         6           6         
+Switzerland           5.9         5.7         6.2       
+Belgium               5.6         4.5         7.1       
+Cambodia              5.6         5.6         5.6       
+Georgia               5.6         5.6         5.6       
+Nigeria               5.6         5.6         5.6       
+Peru                  5.4         5.4         5.4       
+Aruba                 4.8         4.8         4.8       
+Bahamas               4.4         4.4         4.4       
+New Line              4.4         4.4         4.4       
+sqlite> SELECT language, COUNT(*)
+   ...> FROM movies 
+   ...> GROUP BY language
+   ...> ORDER BY language;
+
+                      12        
+Aboriginal            2         
+Arabic                5         
+Aramaic               1         
+Bosnian               1         
+Cantonese             11        
+Chinese               3         
+Czech                 1         
+Danish                5         
+Dari                  2         
+Dutch                 4         
+Dzongkha              1         
+English               4704      
+Filipino              1         
+French                73        
+German                19        
+Greek                 1         
+Hebrew                5         
+Hindi                 28        
+Hungarian             1         
+Icelandic             2         
+Indonesian            2         
+Italian               11        
+Japanese              18        
+Kannada               1         
+Kazakh                1         
+Korean                8         
+Mandarin              26        
+Maya                  1         
+Mongolian             1         
+None                  2         
+Norwegian             4         
+Panjabi               1         
+Persian               4         
+Polish                4         
+Portuguese            8         
+Romanian              2         
+Russian               11        
+Slovenian             1         
+Spanish               40        
+Swahili               1         
+Swedish               5         
+Tamil                 1         
+Telugu                1         
+Thai                  3         
+Urdu                  1         
+Vietnamese            1         
+Zulu                  2         
+
+
+                 
+
+
+                                                                  
+                                                                                                             
+sqlite> SELECT (director_name || "," || title || "," || year|| " - "|| country) AS move
+   ...> FROM movies
+   ...> WHERE director_name != ""
+   ...> ORDER by director_name
+   ...> LIMIT 15;
+A. Raven Cruz,The Helix... Loaded ,2005 - USA                                                                                                         
+Aaron Hann,Circle ,2015 - USA                                                                                                                         
+Aaron Schneider,Get Low ,2009 - USA                                                                                                                   
+Aaron Seltzer,Date Movie ,2006 - USA                                                                                                                  
+Abel Ferrara,The Funeral ,1996 - USA                                                                                                                  
+Adam Brooks,Definitely, Maybe ,2008 - Germany                                                                                                         
+Adam Carolla,Road Hard ,2015 - USA                                                                                                                    
+Adam Goldberg,I Love Your Work ,2003 - USA                                                                                                            
+Adam Green,Hatchet ,2006 - USA                                                                                                                        
+Adam Jay Epstein,Extreme Movie ,2008 - USA                                                                                                            
+Adam Marcus,Jason Goes to Hell: The Final Friday ,1993 - USA                                                                                          
+Adam McKay,The Other Guys ,2010 - USA                                                                                                                 
+Adam McKay,Talladega Nights: The Ballad of Ricky Bobby ,2006 - USA                                                                                    
+Adam McKay,Step Brothers ,2008 - USA                                                                                                                  
+Adam McKay,Anchorman 2: The Legend Continues ,2013 - USA                                                                                              
+
+sqlite> .width 50
+sqlite> SELECT title, year
+   ...> FROM movies
+   ...> LIMIT 10;
+Avatar                                              2009      
+Pirates of the Caribbean: At World's End            2007      
+Spectre                                             2015      
+The Dark Knight Rises                               2012      
+Star Wars: Episode VII - The Force Awakens                    
+John Carter                                         2012      
+Spider-Man 3                                        2007      
+Tangled                                             2010      
+Avengers: Age of Ultron                             2015      
+Harry Potter and the Half-Blood Prince              2009      
+                                        
+
+sqlite> SELECT round((AVG(gross)),2), country
+   ...> FROM movies
+   ...> GROUP BY country
+   ...> LIMIT 10;
+0.0                                                           
+1127331.0                                           Afghanista
+5423202.25                                          Argentina 
+10076136.0                                          Aruba     
+30702694.58                                         Australia 
+0.0                                                 Bahamas   
+340283.25                                           Belgium   
+1695358.75                                          Brazil    
+0.0                                                 Bulgaria  
+0.0                                                 Cambodia  
+
+                 
+sqlite> .width 50 50
+sqlite> SELECT title,  replace(genres, '|', ' ')
+   ...> FROM movies
+   ...> LIMIT 10;
+Avatar                                              Action Adventure Fantasy Sci-Fi                   
+Pirates of the Caribbean: At World's End            Action Adventure Fantasy                          
+Spectre                                             Action Adventure Thriller                         
+The Dark Knight Rises                               Action Thriller                                   
+Star Wars: Episode VII - The Force Awakens          Documentary                                       
+John Carter                                         Action Adventure Sci-Fi                           
+Spider-Man 3                                        Action Adventure Romance                          
+Tangled                                             Adventure Animation Comedy Family Fantasy Musical 
+Avengers: Age of Ultron                             Action Adventure Sci-Fi                           
+Harry Potter and the Half-Blood Prince              Adventure Family Fantasy Mystery                  
+sqlite> .width 50 50 20
+sqlite> SELECT title,  replace(genres, '|', ' '), num_critic_review
+   ...> FROM movies
+   ...> ORDER BY num_critic_review DESC
+   ...> LIMIT 15;
+Star Wars: Episode VII - The Force Awakens          Documentary                                                             
+10,000 B.C.                                         Comedy                                                                  
+Black Water Transit                                 Crime Drama                                                             
+Fired Up                                            Comedy                                                                  
+The Doombolt Chase                                  Drama Family                                                            
+The Touch                                           Romance Short                                                           
+Hands of Stone                                      Action Biography Drama Sport                                            
+Gone, Baby, Gone                                    Comedy Drama Reality-TV Romance                                         
+The Love Letter                                     Fantasy Romance                                                         
+Towering Inferno                                    Comedy                                                                  
+Del 1 - Män som hatar kvinnor                       Action Crime Mystery Thriller                                           
+Flying By                                           Drama Family Music                                                      
+We Have Your Husband                                Crime Drama Thriller                                                    
+Running Forever                                     Family                                                                  
+Deadline Gallipoli                                  Drama War                                                               
+sqlite> .width 50 50 50
+                                       
+sqlite> SELECT title, imdb_score,  replace(genres, '|', ' ')
+   ...> FROM movies
+   ...> ORDER BY imdb_score DESC
+   ...> LIMIT 15;
+Towering Inferno                                    9.5                   Comedy                                            
+The Shawshank Redemption                            9.3                   Crime Drama                                       
+The Godfather                                       9.2                   Crime Drama                                       
+Dekalog                                             9.1                   Drama                                             
+Dekalog                                             9.1                   Drama                                             
+Kickboxer: Vengeance                                9.1                   Action                                            
+The Dark Knight                                     9                     Action Crime Drama Thriller                       
+The Godfather: Part II                              9                     Crime Drama                                       
+Fargo                                               9                     Crime Drama Thriller                              
+The Lord of the Rings: The Return of the King       8.9                   Action Adventure Drama Fantasy                    
+Schindler's List                                    8.9                   Biography Drama History                           
+Pulp Fiction                                        8.9                   Crime Drama                                       
+The Good, the Bad and the Ugly                      8.9                   Western                                           
+12 Angry Men                                        8.9                   Crime Drama                                       
+Inception                                           8.8                   Action Adventure Sci-Fi Thriller                  
+
+
+            
+sqlite> SELECT country, COUNT(*)
+   ...> FROM movies
+   ...> WHERE country = "Australia";
+Australia                                           55                  
+sqlite> SELECT country, COUNT(*)
+   ...> FROM movies
+   ...> GROUP BY country
+   ...> ORDER BY country;
+                                                    5                   
+Afghanistan                                         1                   
+Argentina                                           4                   
+Aruba                                               1                   
+Australia                                           55                  
+Bahamas                                             1                   
+Belgium                                             4                   
+Brazil                                              8                   
+Bulgaria                                            1                   
+Cambodia                                            1                   
+Cameroon                                            1                   
+Canada                                              126                 
+Chile                                               1                   
+China                                               30                  
+Colombia                                            1                   
+Czech Republic                                      3                   
+Denmark                                             11                  
+Dominican Republic                                  1                   
+Egypt                                               1                   
+Finland                                             1                   
+France                                              154                 
+Georgia                                             1                   
+Germany                                             97                  
+Greece                                              2                   
+Hong Kong                                           17                  
+Hungary                                             2                   
+Iceland                                             3                   
+India                                               34                  
+Indonesia                                           1                   
+Iran                                                4                   
+Ireland                                             12                  
+Israel                                              4                   
+Italy                                               23                  
+Japan                                               23                  
+Kenya                                               1                   
+Kyrgyzstan                                          1                   
+Libya                                               1                   
+Mexico                                              17                  
+Netherlands                                         5                   
+New Line                                            1                   
+New Zealand                                         15                  
+Nigeria                                             1                   
+Norway                                              8                   
+Official site                                       1                   
+Pakistan                                            1                   
+Panama                                              1                   
+Peru                                                1                   
+Philippines                                         1                   
+Poland                                              5                   
+Romania                                             4                   
+Russia                                              11                  
+Slovakia                                            1                   
+Slovenia                                            1                   
+South Africa                                        8                   
+South Korea                                         14                  
+Soviet Union                                        1                   
+Spain                                               33                  
+Sweden                                              6                   
+Switzerland                                         3                   
+Taiwan                                              2                   
+Thailand                                            5                   
+Turkey                                              1                   
+UK                                                  448                 
+USA                                                 3807                
+United Arab Emirates                                1                   
+West Germany                                        3                   
+
+sqlite> SELECT country, AVG(movie_fb_likes)
+   ...> FROM movies
+   ...> GROUP BY country
+   ...> ORDER BY country
+   ...> LIMIT 15;
+                                                    3714.0              
+Afghanistan                                         0.0                 
+Argentina                                           8285.0              
+Aruba                                               471.0               
+Australia                                           10820.8909090909    
+Bahamas                                             0.0                 
+Belgium                                             3838.5              
+Brazil                                              5026.25             
+Bulgaria                                            13000.0             
+Cambodia                                            708.0               
+Cameroon                                            50.0                
+Canada                                              2619.48412698413    
+Chile                                               0.0                 
+China                                               2177.43333333333    
+Colombia                                            0.0                 
+  
+
+sqlite> SELECT country, AVG(movie_fb_likes) AS a
+   ...> FROM movies
+   ...> GROUP BY country
+   ...> ORDER BY a DESC
+   ...> LIMIT 15;
+Indonesia                                           51000.0             
+Denmark                                             13409.1818181818    
+Bulgaria                                            13000.0             
+Norway                                              12564.0             
+Iran                                                12193.25            
+Australia                                           10820.8909090909    
+West Germany                                        10733.3333333333    
+South Africa                                        10383.75            
+Ireland                                             9754.16666666667    
+Spain                                               8820.57575757576    
+Argentina                                           8285.0              
+UK                                                  8161.72098214286    
+South Korea                                         8134.78571428571    
+USA                                                 7951.24454951405    
+New Zealand                                         7221.86666666667    
+
+sqlite> SELECT country,(AVG(gross)-AVG(budget)) AS p 
+   ...> FROM movies
+   ...> GROUP BY country
+   ...> ORDER BY p DESC
+   ...> LIMIT 15;
+Taiwan                                              49340682.0          
+New Zealand                                         15887368.1333333    
+USA                                                 13961518.3477804    
+Peru                                                12362581.0          
+Official site                                       5218921.0           
+South Africa                                        4342530.125         
+Argentina                                           3998202.25          
+Colombia                                            3517198.0           
+Indonesia                                           3005123.0           
+UK                                                  2952590.24776785    
+Australia                                           2364412.34545454    
+Mexico                                              1617498.82352941    
+Afghanistan                                         1081331.0           
+Poland                                              659909.8            
+Israel                                              357988.0  
+
+          
+sqlite> SELECT country,(AVG(gross)-AVG(budget)) AS p
+   ...> FROM movies
+   ...> GROUP BY country
+   ...> ORDER BY p 
+   ...> LIMIT 15;
+Hungary                                             -1248312404.5       
+South Korea                                         -1184657262.07143   
+Japan                                               -280065520.565217   
+Thailand                                            -179197675.4        
+New Line                                            -83287549.0         
+India                                               -53255367.0294118   
+Czech Republic                                      -47521894.6666667   
+China                                               -38743974.2         
+Libya                                               -35000000.0         
+Spain                                               -28069712.969697    
+Aruba                                               -24923864.0         
+Norway                                              -20661931.375       
+Panama                                              -20000000.0         
+Georgia                                             -19982851.0         
+Russia                                              -14340017.5454545   
+
+
+sqlite> SELECT country, AVG(movie_fb_likes) AS a
+   ...> FROM movies
+   ...> GROUP BY country
+   ...> ORDER BY a DESC
+   ...> LIMIT 15;
+Indonesia                                           51000.0             
+Denmark                                             13409.1818181818    
+Bulgaria                                            13000.0             
+Norway                                              12564.0             
+Iran                                                12193.25            
+Australia                                           10820.8909090909    
+West Germany                                        10733.3333333333    
+South Africa                                        10383.75            
+Ireland                                             9754.16666666667    
+Spain                                               8820.57575757576    
+Argentina                                           8285.0              
+UK                                                  8161.72098214286    
+South Korea                                         8134.78571428571    
+USA                                                 7951.24454951405    
+New Zealand                                         7221.86666666667   
+
+ 
+
+sqlite> SELECT country,(AVG(gross)-AVG(budget)) AS p, AVG(movie_fb_likes) AS a
+   ...> FROM movies
+   ...> GROUP BY country;
+                                                    -700000.0             3714.0                                            
+Afghanistan                                         1081331.0             0.0                                               
+Argentina                                           3998202.25            8285.0                                            
+Aruba                                               -24923864.0           471.0                                             
+Australia                                           2364412.34545454      10820.8909090909                                  
+Bahamas                                             -5000000.0            0.0                                               
+Belgium                                             -11909716.75          3838.5                                            
+Brazil                                              -1954641.25           5026.25                                           
+Bulgaria                                            -7000000.0            13000.0                                           
+Cambodia                                            0.0                   708.0                                             
+Cameroon                                            32631.0               50.0                                              
+Canada                                              16482.5476190466      2619.48412698413                                  
+Chile                                               -13811358.0           0.0                                               
+China                                               -38743974.2           2177.43333333333                                  
+Colombia                                            3517198.0             0.0                                               
+Czech Republic                                      -47521894.6666667     6333.33333333333                                  
+Denmark                                             -10230343.4545455     13409.1818181818                                  
+Dominican Republic                                  -500000.0             126.0                                             
+Egypt                                               -1500000.0            0.0                                               
+Finland                                             -3238291.0            0.0                                               
+France                                              -13045082.3181818     4925.82467532467                                  
+Georgia                                             -19982851.0           0.0                                               
+Germany                                             -5591822.3298969      5153.83505154639                                  
+Greece                                              -7091004.5            6500.0                                            
+Hong Kong                                           -11348721.2352941     1662.58823529412                                  
+Hungary                                             -1248312404.5         3303.5                                            
+Iceland                                             -4589402.0            333.333333333333                                  
+India                                               -53255367.0294118     2788.41176470588                                  
+Indonesia                                           3005123.0             51000.0                                           
+Iran                                                -1248081.5            12193.25                                          
+Ireland                                             -2404475.0            9754.16666666667                                  
+Israel                                              357988.0              27.75                                             
+Italy                                               -9715344.39130435     4697.13043478261                                  
+Japan                                               -280065520.565217     5529.95652173913                                  
+Kenya                                               -15000.0              45.0                                              
+Kyrgyzstan                                          -1400000.0            0.0                                               
+Libya                                               -35000000.0           0.0                                               
+Mexico                                              1617498.82352941      4204.47058823529                                  
+Netherlands                                         -8879067.0            162.0                                             
+New Line                                            -83287549.0           53.0                                              
+New Zealand                                         15887368.1333333      7221.86666666667                                  
+Nigeria                                             -7500000.0            389.0                                             
+Norway                                              -20661931.375         12564.0                                           
+Official site                                       5218921.0             0.0                                               
+Pakistan                                            -1000000.0            259.0                                             
+Panama                                              -20000000.0           0.0                                               
+Peru                                                12362581.0            0.0                                               
+Philippines                                         63071.0               74.0                                              
+Poland                                              659909.8              3462.8                                            
+Romania                                             110993.25             3508.5                                            
+Russia                                              -14340017.5454545     4576.0                                            
+Slovakia                                            0.0                   0.0                                               
+Slovenia                                            -500000.0             18.0                                              
+South Africa                                        4342530.125           10383.75                                          
+South Korea                                         -1184657262.07143     8134.78571428571                                  
+Soviet Union                                        -1000000.0            0.0                                               
+Spain                                               -28069712.969697      8820.57575757576                                  
+Sweden                                              -8336594.16666667     3.66666666666667                                  
+Switzerland                                         -11666666.6666667     2781.33333333333                                  
+Taiwan                                              49340682.0            0.0                                               
+Thailand                                            -179197675.4          167.8                                             
+Turkey                                              -8300000.0            467.0                                             
+UK                                                  2952590.24776785      8161.72098214286                                  
+USA                                                 13961518.3477804      7951.24454951405                                  
+United Arab Emirates                                -125000.0             54.0                                              
+West Germany                                        -9855622.0            10733.3333333333 
+
+
+
+sqlite> SELECT title, imdb_score, duration, aspect_ratio
+   ...> FROM movies
+   ...> WHERE country != "USA"
+   ...> ORDER BY imdb_score
+   ...> LIMIT 15;
+Superbabies: Baby Geniuses 2                        1.9                   88                                                  2.35      
+United Passions                                     2                     110                                                 2.35      
+Alone in the Dark                                   2.3                   94                                                  2.35      
+The Vatican Exorcisms                               2.6                   76                                                  2.35      
+Inchon                                              2.7                   140                                                 2.35      
+Barney's Great Adventure                            2.8                   76                                                  1.85      
+Hum To Mohabbat Karega                              2.8                                                                                 
+Mutant World                                        2.8                   82                                                            
+The True Story of Puss'N Boots                      2.9                   80                                                            
+Shanghai Surprise                                   3                     97                                                  1.85      
+Lords of London                                     3.1                   90                                                  2.35      
+Alien Uprising                                      3.1                   101                                                 2.35      
+Legend of Kung Fu Rabbit                            3.2                   89                                                            
+Feardotcom                                          3.3                   101                                                 2.35      
+Spice World                                         3.3                   93                                                  1.85      
+
+sqlite> SELECT title, imdb_score, duration, aspect_ratio
+   ...> FROM movies
+   ...> WHERE country != "USA"
+   ...> ORDER BY imdb_score DESC
+   ...> LIMIT 15;
+Towering Inferno                                    9.5                   65                                                  1.33      
+Dekalog                                             9.1                   55                                                  1.33      
+Dekalog                                             9.1                   55                                                  1.33      
+The Good, the Bad and the Ugly                      8.9                   142                                                 2.35      
+The Lord of the Rings: The Fellowship of the Ring   8.8                   171                                                 2.35      
+Gomorrah                                            8.7                   55                                                  1.85      
+City of God                                         8.7                   135                                                 1.85      
+Queen of the Mountains                              8.7                   135                                                 2.35      
+Seven Samurai                                       8.7                   202                                                 1.37      
+Luther                                              8.6                   60                                                  16        
+Spirited Away                                       8.6                   125                                                 1.85      
+Once Upon a Time in the West                        8.6                   145                                                 2.35      
+The Pianist                                         8.5                   150                                                 1.85      
+Alien                                               8.5                   116                                                 2.35      
+Airlift                                             8.5                   130                                                 2.35      
+
+sqlite> SELECT title, imdb_score, genres
+   ...> FROM movies
+   ...> ORDER BY imdb_score DESC
+   ...> LIMIT 15;
+Towering Inferno                                    9.5                   Comedy                                            
+The Shawshank Redemption                            9.3                   Crime|Drama                                       
+The Godfather                                       9.2                   Crime|Drama                                       
+Dekalog                                             9.1                   Drama                                             
+Dekalog                                             9.1                   Drama                                             
+Kickboxer: Vengeance                                9.1                   Action                                            
+The Dark Knight                                     9                     Action|Crime|Drama|Thriller                       
+The Godfather: Part II                              9                     Crime|Drama                                       
+Fargo                                               9                     Crime|Drama|Thriller                              
+The Lord of the Rings: The Return of the King       8.9                   Action|Adventure|Drama|Fantasy                    
+Schindler's List                                    8.9                   Biography|Drama|History                           
+Pulp Fiction                                        8.9                   Crime|Drama                                       
+The Good, the Bad and the Ugly                      8.9                   Western                                           
+12 Angry Men                                        8.9                   Crime|Drama                                       
+Inception                                           8.8                   Action|Adventure|Sci-Fi|Thriller                  
+
+sqlite> SELECT title, imdb_score, genres
+   ...> FROM movies
+   ...> WHERE country != "USA"
+   ...> ORDER BY imdb_score DESC
+   ...> LIMIT 15;
+Towering Inferno                                    9.5                   Comedy                                            
+Dekalog                                             9.1                   Drama                                             
+Dekalog                                             9.1                   Drama                                             
+The Good, the Bad and the Ugly                      8.9                   Western                                           
+The Lord of the Rings: The Fellowship of the Ring   8.8                   Action|Adventure|Drama|Fantasy                    
+Gomorrah                                            8.7                   Crime|Drama|Thriller                              
+City of God                                         8.7                   Crime|Drama                                       
+Queen of the Mountains                              8.7                   Action|Biography|Drama|History                    
+Seven Samurai                                       8.7                   Action|Adventure|Drama                            
+Luther                                              8.6                   Crime|Drama|Mystery|Thriller                      
+Spirited Away                                       8.6                   Adventure|Animation|Family|Fantasy                
+Once Upon a Time in the West                        8.6                   Western                                           
+The Pianist                                         8.5                   Biography|Drama|War                               
+Alien                                               8.5                   Horror|Sci-Fi                                     
+Airlift                                             8.5                   Action|Drama|History|Thriller|War                 
+
