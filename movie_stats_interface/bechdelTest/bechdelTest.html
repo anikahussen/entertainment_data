@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Extra Credit</title>
+    <link rel="stylesheet" type="text/css" href="../custom.css">
+    <link rel="stylesheet" type="text/css" href="../ah3866_asg5_movie_web_interface/asg5_ah3866_moviesData.css">
+<style>
+
+     #title {
+     	text-align: center;
+
+     }
+     #cogfloat {
+       margin-left: 80%;
+       margin-top: 15%;
+       position: fixed;
+       float: left;
+
+     }
+
+  	#scrubTitle {
+  		font-family: clean;
+  		font-weight: bold;
+  		font-size: 20px;
+  		text-align: center;
+  		color: #a12cd2;
+	}
+	#dataVal {
+		font-family: clean;
+  		font-weight: bold;
+  		font-size: 24px;
+  		text-align: center;
+  		color: #659D32;
+	}
+
+	#links {
+		font-family: clean;
+  		font-weight: bold;
+  		font-size: 24px;
+  		text-align: center;
+  		color: #a12cd2;
+	}
+
+	#links2 {
+		font-family: clean;
+  		font-weight: bold;
+  		font-size: 24px;
+  		text-align: center;
+  		color: #659D32;
+  	}
+
+
+</style>
+  </head>
+
+  <body id="assignmentbody">
+<a id="home" href=../index.html><img src="../asg1Content/home.png" width="64px" height="64px"></a>
+<h1 id="title">B e c h d e l &nbsp;&nbsp; T e s t </br> D a t a s e t </h1>
+
+
+<h2> Data URL: <a href="https://data.world/popculture/imdb-5000-movie-dataset" target="blank">https://data.world/popculture/imdb-5000-movie-dataset</a> </h2>
+
+<h3> Data Overview </h3>
+
+
+
+<div id="dataSummary">
+<p id ="dataSum">
+
+The Bechdel-Wallace test measures the female representation in movies on the basis of whether there are two female characters that speak to each other about a topic other than a man. The Women in Movies dataset is an <i>open source</i> dataset explores the relationship between movie finances, women representation and their calculated Bechdel scores of well-known productions. Carolee Mitchell is currently a Strategic Analyst at Accruent, but when she worked with Data.World, she worked to make the platform a collaborative and meaningful data source. For the Women in Movies dataset, she accrued the film-financing data from <a href="https://www.the-numbers.com/" target="blank">the-numbers.com</a> and the qualitative Bechdel test results from <a href="https://bechdeltest.com/" target="blank">bechdeltest.com</a>. Both websites are reliable sources credited by data analyst LLCs or screened by the respective organizations. This data is extremely important in combatting women underrepresentation in the film industry. In fact, data like this helped debunk the belief that movies with leading women roles result in lower gross returns.  </br>
+</p>
+
+<h3 id="scrubTitle">Scrubbing</h3>
+<p>
+When scrubbing this data, I removed the ‘code’ column since it just combines the ‘year’ and the ‘binary’ values as a concatenated string (ie. 2008FAIL). I also removed the original ‘decade code’ column, since it just signifies the decade the movies were released (ie. the 2010s are period code 1). If needed the period code can be calculated using the ‘year’ values. Other than I just changed the original titles to distinguish the data better. </br>
+
+</br>
+</b>COLUMN NAME CHANGES</b></br> 
+‘test’ —> classifier' </br>
+‘budget’ —> ’budget_initial' </br>
+‘domgross’ —> ’domgross_initial'</br>
+‘intgross’ —> ’intgross_initial' </br>
+
+I also added columns of calculated gross totals. The values in the ’total_gross_initial column are the sums of their respective 'domgross_initial' + 'intgross_initial’. The values in the ’total_gross_2013 column are the sums of their respective 'domgross_2013$’ + 'intgross_2013$’. </br>
+
+For my Python scrubbing program, I had created a user input statement: “Would you like to see the header?” and I have seen it to “no”. Thus, the 0 index (0th row) is the first data submissions. If you would like to have the header, contact me at ah3866@nyu.edu. 
+ </br>
+
+
+
+
+</p>
+
+
+<p id="learnmore"> To learn more about The Dollar-And-Cents Case Against Hollywood’s Exclusion of Women: read here
+https://fivethirtyeight.com/features/the-dollar-and-cents-case-against-hollywoods-exclusion-of-women/
+ </p>
+
+</br>
+</br>
+</br>
+
+<h4 id="dataVal">Here are the column values I have left in the dataset, along with their datatypes and corresponding meanings: </h4>
+
+<p>
+'year' — INTEGER (year of release)  </br>
+'imdb' — INTEGER (IMDb code/ID)  </br>
+'title' — TEXT (the title of the movie)  </br>
+'classifier' — TEXT (descriptor of the reason why the movie failed)  </br>
+'clean_test' — TEXT (the reason why the movie failed /none for movies that passed)  </br>
+'binary' — TEXT (PASS or FAIL the Bechdel test)   </br>
+'budget_initial' — INTEGER (budget at the start of production)  </br>
+'domgross_initial' — INTEGER (domestic gross at the start of production) </br>
+'intgross_initial' - INTEGER (international gross at the start of production) </br>
+'budget_2013$' - INTEGER (budget in 2013) </br>
+'domgross_2013$' - INTEGER (domestic gross in 2013) </br>
+'intgross_2013$' - INTEGER (international gross in 2013) </br>
+'period_code' - INTEGER (movie industry/Hollywood code)</br>
+'total_gross_initial' - INTEGER (total of domestic and international gross at the start of production) </br>
+'total_gross_2013' - INTEGER (total of domestic and international gross in 2013) </br>
+
+</br>
+</br>
+</br>
+</br>
+
+<p > <a id= links href="bechdel_data.csv">Bechdel Test Dataset </a></p>
+<p > <a id= links2 href="bechdel_data.sql">Bechdel Test Dataset SQL</a></p>
+
+
+
+
+</p>
+
+
+
+
+
+
+</div>
+
+</br>
+</br>
+</br>
+</br>
+
+
+
+  </body>
+
+
+
+
+  </html>

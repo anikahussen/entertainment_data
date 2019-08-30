@@ -1,0 +1,101 @@
+@font-face {
+  font-family: clean;
+  src: url(../asg1Content/trench100free.otf);
+}
+
+h2{
+  font-family: clean;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+}
+
+
+a {
+	text-decoration: none;
+	color: #a12cd2;
+
+}
+
+h3{
+  font-family: clean;
+  font-weight: bold;
+  font-size: 48px;
+  text-align: center;
+}
+
+
+p {
+  font-family: clean;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+
+}
+
+#dataSummary {
+	width: 50%;
+	margin-left: 25%;
+	margin-right: 25%;
+}
+
+.varTitle {
+	color: #ff409f;
+
+}
+
+i {
+	color: #ff409f;
+}
+
+#tagline {
+	font-size: 32px;
+
+}
+
+#dataForm {
+	width: 50%;
+	margin-left: 25%;
+	margin-right: 25%;
+}
+
+.question {
+	width: 50%;
+	height: 30px;
+	margin-left: 25%;
+	margin-right: 25%;
+	color: #ff409f;
+
+}
+
+#subbtn, #resbtn {
+	margin-left: 40%;
+	margin-right: 40%;
+	width: 20%;
+	height: 30px;
+	color: #ff409f;
+}
+
+
+.header {
+	font-weight: bold;
+
+}
+
+#start {
+	background-color:#ff409f;
+	height: 25px;
+	font-size: 24px;
+}
+
+
+h4 {
+	font-family: 'Miss Order';
+	font-size: 65px;
+    font-weight: bold;
+    text-shadow: 4px 4px #d60683;
+}
+
+td {
+	font-family: clean;
+}

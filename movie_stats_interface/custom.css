@@ -1,0 +1,145 @@
+
+#title {
+    font-family: 'Miss Order';
+    font-size: 65px;
+    font-weight: bold;
+    text-shadow: 4px 4px #d60683;
+    color: black;
+    clear: right;
+
+  }
+
+#indexbody {
+  background-color: 	#778899;
+  margin-bottom: 5%;
+
+}
+
+.alltitles {
+  margin-left: 33%;
+  margin-right: 33%;
+  margin-top: 5%;
+}
+
+.asmttitle {
+font-family: 'Miss Order';
+font-size: 40px;
+font-weight: bold;
+color: black;
+
+
+
+}
+
+.assignmentlink {
+text-decoration: none;
+color: #d60683
+
+}
+
+.assignmentlink: hover {
+text-shadow: 4px 4px #F3EF7D;
+color: #F3EF7D;
+}
+
+.asmttitle a: hover {
+  text-shadow: 4px 4px #F3EF7D;
+  color: #F3EF7D;
+}
+
+
+#assignmentbody {
+  background-color: 	#add8e6;
+  margin-bottom:5%;
+}
+
+
+
+#researchpage {
+
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 15%;
+  width: 60%;
+}
+
+table  {
+  width: 100%;
+}
+
+tr {
+
+}
+
+td {
+
+}
+
+
+
+h3, h4, h5  {
+  text-align:center;
+}
+
+.photo {
+  margin-left: 10%;
+  margin-right: 10%;
+  width:80%;
+
+}
+
+.data_map_photo {
+  margin-left: 5%;
+  margin-right: 5%;
+  width:90%;
+}
+
+
+@font-face {
+  font-family: clean;
+  src: url(asg1Content/trench100free.otf);
+}
+
+.title {
+  font-family: clean;
+  font-weight: bold;
+  font-size: 36px;
+}
+
+p {
+  font-family: clean;
+  font-weight: bold;
+  line-height: 20px;
+}
+
+.link {
+    text-decoration: none;
+
+}
+
+#sl {
+  font-weight: bold;
+  color: #a12cd2;
+}
+
+#home {
+  position:fixed;
+}
+
+
+#letterphoto {
+  margin-left: 5%;
+  margin-right: 5%;
+  width:90%;
+
+}
+
+#learnmore {
+  font-family: clean;
+  font-weight: bold;
+  color: #a12cd2;
+}
+
+
+
+
